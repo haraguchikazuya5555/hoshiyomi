@@ -1,0 +1,734 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>星詠み | 生年月日と名前で占う、今日だけの運勢</title>
+<meta name="description" content="生年月日とお名前から、数秘術とタロットで今日の運勢を占います。総合運・恋愛運・仕事運・金運、ラッキーカラーとラッキーアイテムも毎日更新。">
+<meta property="og:title" content="星詠み | 今日だけの運勢占い">
+<meta property="og:description" content="生年月日と名前から導く、毎日変わるあなただけの運勢。">
+<meta property="og:type" content="website">
+<meta property="og:url" content="https://haraguchikazuya5555.github.io/hoshiyomi/">
+<meta property="og:image" content="https://haraguchikazuya5555.github.io/hoshiyomi/assets/og-image.png">
+<meta name="twitter:card" content="summary_large_image">
+<link rel="canonical" href="https://haraguchikazuya5555.github.io/hoshiyomi/">
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "WebApplication",
+  "name": "星詠み",
+  "url": "https://haraguchikazuya5555.github.io/hoshiyomi/",
+  "description": "生年月日と名前から、数秘術とタロットで今日の運勢を占う無料Webアプリ。",
+  "applicationCategory": "LifestyleApplication",
+  "operatingSystem": "Any",
+  "inLanguage": "ja",
+  "offers": { "@type": "Offer", "price": "0", "priceCurrency": "JPY" }
+}
+</script>
+<!-- GA4計測を有効化する場合:下の2行のコメントを外し G-XXXXXXXXXX を自分の測定IDに置き換える
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-XXXXXXXXXX"></script>
+<script>window.dataLayer=window.dataLayer||[];function gtag(){dataLayer.push(arguments)};gtag('js',new Date());gtag('config','G-XXXXXXXXXX');</script>
+-->
+<link rel="icon" type="image/png" href="assets/favicon-32.png">
+<link rel="apple-touch-icon" href="assets/icon-180.png">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Shippori+Mincho:wght@500;700&family=Zen+Kaku+Gothic+New:wght@400;500;700&display=swap" rel="stylesheet">
+<style>
+:root {
+  --bg-deep: #0b1026;
+  --bg-mid: #171339;
+  --gold: #e6c67a;
+  --gold-soft: #cfae64;
+  --text: #ece9f4;
+  --text-dim: #a9a3c2;
+  --card-bg: rgba(255, 255, 255, 0.06);
+  --card-border: rgba(230, 198, 122, 0.28);
+}
+* { margin: 0; padding: 0; box-sizing: border-box; }
+html { scroll-behavior: smooth; }
+body {
+  font-family: "Zen Kaku Gothic New", "Hiragino Kaku Gothic ProN", sans-serif;
+  color: var(--text);
+  background: linear-gradient(180deg, var(--bg-deep) 0%, var(--bg-mid) 55%, #241640 100%);
+  min-height: 100vh;
+  overflow-x: hidden;
+}
+#stars {
+  position: fixed;
+  inset: 0;
+  z-index: 0;
+  pointer-events: none;
+}
+main {
+  position: relative;
+  z-index: 1;
+  max-width: 640px;
+  margin: 0 auto;
+  padding: 48px 20px 40px;
+}
+.hero { text-align: center; margin-bottom: 36px; }
+.hero-moon { font-size: 44px; filter: drop-shadow(0 0 18px rgba(230, 198, 122, 0.6)); }
+h1 {
+  font-family: "Shippori Mincho", serif;
+  font-size: 44px;
+  letter-spacing: 0.35em;
+  text-indent: 0.35em;
+  color: var(--gold);
+  margin-top: 10px;
+  text-shadow: 0 0 24px rgba(230, 198, 122, 0.35);
+}
+.subtitle {
+  margin-top: 12px;
+  color: var(--text-dim);
+  font-size: 14px;
+  letter-spacing: 0.12em;
+}
+.today {
+  margin-top: 16px;
+  font-family: "Shippori Mincho", serif;
+  font-size: 15px;
+  color: var(--gold-soft);
+  letter-spacing: 0.2em;
+}
+.card {
+  background: var(--card-bg);
+  border: 1px solid var(--card-border);
+  border-radius: 16px;
+  padding: 26px 24px;
+  backdrop-filter: blur(8px);
+  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.35);
+}
+.form-card label {
+  display: block;
+  font-size: 13px;
+  letter-spacing: 0.1em;
+  color: var(--text-dim);
+  margin-bottom: 8px;
+}
+.form-card input {
+  width: 100%;
+  padding: 13px 14px;
+  margin-bottom: 20px;
+  font-size: 16px;
+  font-family: inherit;
+  color: var(--text);
+  background: rgba(11, 16, 38, 0.6);
+  border: 1px solid rgba(169, 163, 194, 0.35);
+  border-radius: 10px;
+  outline: none;
+  transition: border-color 0.2s;
+  color-scheme: dark;
+}
+.form-card input:focus { border-color: var(--gold); }
+.divine-btn {
+  display: block;
+  width: 100%;
+  padding: 15px;
+  font-family: "Shippori Mincho", serif;
+  font-size: 17px;
+  letter-spacing: 0.25em;
+  text-indent: 0.25em;
+  color: #1b1230;
+  background: linear-gradient(135deg, #f0d692, var(--gold-soft));
+  border: none;
+  border-radius: 999px;
+  cursor: pointer;
+  box-shadow: 0 4px 20px rgba(230, 198, 122, 0.35);
+  transition: transform 0.15s, box-shadow 0.15s;
+}
+.divine-btn:hover { transform: translateY(-2px); box-shadow: 0 8px 26px rgba(230, 198, 122, 0.5); }
+.form-note {
+  margin-top: 14px;
+  text-align: center;
+  font-size: 12px;
+  color: var(--text-dim);
+}
+.error-msg {
+  display: none;
+  margin-bottom: 14px;
+  padding: 10px 14px;
+  font-size: 13px;
+  color: #ffb3c1;
+  background: rgba(255, 90, 120, 0.12);
+  border: 1px solid rgba(255, 120, 140, 0.4);
+  border-radius: 10px;
+}
+.result { display: none; margin-top: 44px; }
+.result.show { display: block; }
+.result-title {
+  text-align: center;
+  font-family: "Shippori Mincho", serif;
+  font-size: 20px;
+  letter-spacing: 0.2em;
+  color: var(--gold);
+  margin-bottom: 24px;
+}
+.tarot-area {
+  display: flex;
+  justify-content: center;
+  margin-bottom: 10px;
+  perspective: 1000px;
+}
+.tarot-card {
+  position: relative;
+  width: 168px;
+  height: 264px;
+  transform-style: preserve-3d;
+  transition: transform 1.1s cubic-bezier(0.35, 0.1, 0.25, 1);
+}
+.tarot-card.flipped { transform: rotateY(180deg); }
+.tarot-face {
+  position: absolute;
+  inset: 0;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+  border-radius: 14px;
+  backface-visibility: hidden;
+  border: 1px solid var(--card-border);
+}
+.tarot-back {
+  background:
+    radial-gradient(circle at 50% 35%, rgba(230, 198, 122, 0.25), transparent 55%),
+    repeating-linear-gradient(45deg, #1c1740 0 12px, #211a4c 12px 24px);
+  font-size: 44px;
+}
+.tarot-front {
+  transform: rotateY(180deg);
+  background: linear-gradient(160deg, #241d52, #141034);
+  padding: 16px;
+  text-align: center;
+}
+.tarot-emoji { font-size: 52px; filter: drop-shadow(0 0 12px rgba(230, 198, 122, 0.5)); }
+.tarot-name {
+  font-family: "Shippori Mincho", serif;
+  font-size: 21px;
+  color: var(--gold);
+  letter-spacing: 0.15em;
+}
+.tarot-keyword { font-size: 12px; color: var(--text-dim); letter-spacing: 0.1em; }
+.tarot-msg {
+  max-width: 420px;
+  margin: 18px auto 8px;
+  text-align: center;
+  font-size: 14px;
+  line-height: 1.9;
+  color: var(--text);
+}
+.tarot-link-row { text-align: center; margin: 0 0 30px; }
+.detail-link {
+  display: inline-block;
+  margin-top: 8px;
+  font-size: 12px;
+  color: var(--gold-soft);
+  text-decoration: none;
+  border-bottom: 1px dotted var(--gold-soft);
+}
+.detail-link:hover { color: var(--gold); }
+.footer-links { margin-bottom: 8px; font-size: 12px; }
+.footer-links a { color: var(--gold-soft); text-decoration: none; margin: 0 8px; }
+.footer-links a:hover { text-decoration: underline; }
+.aishou-banner {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  margin-top: 18px;
+  padding: 16px 20px;
+  background: var(--card-bg);
+  border: 1px solid var(--card-border);
+  border-radius: 16px;
+  text-decoration: none;
+  color: var(--text);
+  backdrop-filter: blur(8px);
+  transition: background 0.2s, transform 0.15s;
+}
+.aishou-banner:hover { background: rgba(230, 198, 122, 0.12); transform: translateY(-1px); }
+.aishou-banner-emoji { font-size: 30px; filter: drop-shadow(0 0 10px rgba(230, 198, 122, 0.5)); }
+.aishou-banner strong { font-family: "Shippori Mincho", serif; color: var(--gold); letter-spacing: 0.1em; font-size: 15px; }
+.aishou-banner small { color: var(--text-dim); font-size: 12px; }
+.fade-item { opacity: 0; transform: translateY(14px); transition: opacity 0.7s, transform 0.7s; }
+.fade-item.visible { opacity: 1; transform: none; }
+.overall-card { text-align: center; margin-bottom: 18px; }
+.overall-label { font-size: 14px; color: var(--text-dim); letter-spacing: 0.1em; }
+.overall-stars {
+  font-size: 30px;
+  color: var(--gold);
+  letter-spacing: 0.15em;
+  margin: 10px 0 12px;
+  text-shadow: 0 0 16px rgba(230, 198, 122, 0.45);
+}
+.overall-comment { font-size: 14px; line-height: 1.9; }
+.score-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 12px;
+  margin-bottom: 18px;
+}
+.score-cell { padding: 18px 12px; text-align: center; }
+.score-cell .cat { font-size: 13px; letter-spacing: 0.1em; color: var(--text-dim); }
+.score-cell .cat-stars { font-size: 15px; color: var(--gold); margin: 8px 0 10px; letter-spacing: 0.05em; }
+.score-cell .cat-comment { font-size: 12px; line-height: 1.8; text-align: left; }
+.lucky-card { margin-bottom: 18px; }
+.lucky-row {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  padding: 12px 0;
+}
+.lucky-row + .lucky-row { border-top: 1px dashed rgba(169, 163, 194, 0.25); }
+.lucky-label {
+  flex-shrink: 0;
+  width: 118px;
+  font-size: 12px;
+  letter-spacing: 0.08em;
+  color: var(--text-dim);
+}
+.lucky-value { font-size: 15px; font-weight: 500; display: flex; align-items: center; gap: 10px; flex-wrap: wrap; }
+.color-swatch {
+  width: 18px;
+  height: 18px;
+  border-radius: 50%;
+  border: 2px solid rgba(255, 255, 255, 0.6);
+  box-shadow: 0 0 10px rgba(255, 255, 255, 0.25);
+}
+.numerology-desc { font-size: 12px; color: var(--text-dim); line-height: 1.8; width: 100%; }
+.advice-card { text-align: center; margin-bottom: 26px; }
+.advice-label {
+  font-family: "Shippori Mincho", serif;
+  color: var(--gold);
+  font-size: 15px;
+  letter-spacing: 0.25em;
+  margin-bottom: 12px;
+}
+.advice-text { font-size: 15px; line-height: 2; }
+.share-row { display: flex; gap: 12px; justify-content: center; flex-wrap: wrap; }
+.share-btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  padding: 12px 22px;
+  font-size: 14px;
+  font-family: inherit;
+  font-weight: 500;
+  color: var(--text);
+  background: rgba(255, 255, 255, 0.08);
+  border: 1px solid rgba(169, 163, 194, 0.4);
+  border-radius: 999px;
+  cursor: pointer;
+  text-decoration: none;
+  transition: background 0.2s, transform 0.15s;
+}
+.share-btn:hover { background: rgba(255, 255, 255, 0.16); transform: translateY(-1px); }
+.share-btn.x-btn { border-color: rgba(255, 255, 255, 0.5); }
+.share-btn.line-btn { border-color: rgba(76, 200, 100, 0.6); }
+.retry-note { margin-top: 22px; text-align: center; font-size: 12px; color: var(--text-dim); line-height: 1.9; }
+footer {
+  margin-top: 56px;
+  text-align: center;
+  font-size: 11px;
+  color: var(--text-dim);
+  line-height: 2;
+}
+@media (max-width: 480px) {
+  h1 { font-size: 34px; }
+  .score-grid { grid-template-columns: 1fr; }
+  .score-cell { display: flex; align-items: center; gap: 10px; text-align: left; padding: 14px 16px; }
+  .score-cell .cat { width: 76px; flex-shrink: 0; white-space: nowrap; }
+  .score-cell .cat-stars { margin: 0; width: 92px; flex-shrink: 0; }
+}
+</style>
+</head>
+<body>
+<canvas id="stars"></canvas>
+<main>
+  <header class="hero">
+    <div class="hero-moon">🌙</div>
+    <h1>星詠み</h1>
+    <p class="subtitle">— 生年月日と名前から導く、今日だけの運勢 —</p>
+    <p class="today" id="todayLabel"></p>
+  </header>
+
+  <section class="card form-card">
+    <div class="error-msg" id="errorMsg"></div>
+    <label for="nameInput">お名前(ニックネームでもOK)</label>
+    <input type="text" id="nameInput" placeholder="例:はるか" maxlength="20" autocomplete="off">
+    <label for="dobInput">生年月日</label>
+    <input type="date" id="dobInput" min="1920-01-01">
+    <button class="divine-btn" id="divineBtn">今日の運勢を詠む</button>
+    <p class="form-note">結果は毎日0時に変わります。入力内容が外部に送信されることはありません。</p>
+  </section>
+
+  <a class="aishou-banner" href="aishou.html">
+    <span class="aishou-banner-emoji">💫</span>
+    <span>
+      <strong>ふたりの相性占い</strong><br>
+      <small>気になるあの人との相性を%で診断 →</small>
+    </span>
+  </a>
+
+  <section class="result" id="result">
+    <h2 class="result-title" id="resultTitle"></h2>
+
+    <div class="tarot-area">
+      <div class="tarot-card" id="tarotCard">
+        <div class="tarot-face tarot-back">🌟</div>
+        <div class="tarot-face tarot-front">
+          <span class="tarot-emoji" id="tarotEmoji"></span>
+          <span class="tarot-name" id="tarotName"></span>
+          <span class="tarot-keyword" id="tarotKeyword"></span>
+        </div>
+      </div>
+    </div>
+    <p class="tarot-msg fade-item" id="tarotMsg"></p>
+    <p class="tarot-link-row fade-item"><a class="detail-link" id="tarotLink" href="tarot.html">▶ このカードの意味をくわしく見る</a></p>
+
+    <div class="card overall-card fade-item">
+      <p class="overall-label" id="overallLabel"></p>
+      <p class="overall-stars" id="overallStars"></p>
+      <p class="overall-comment" id="overallComment"></p>
+    </div>
+
+    <div class="score-grid">
+      <div class="card score-cell fade-item">
+        <p class="cat">💘 恋愛運</p>
+        <p class="cat-stars" id="loveStars"></p>
+        <p class="cat-comment" id="loveComment"></p>
+      </div>
+      <div class="card score-cell fade-item">
+        <p class="cat">💼 仕事運</p>
+        <p class="cat-stars" id="workStars"></p>
+        <p class="cat-comment" id="workComment"></p>
+      </div>
+      <div class="card score-cell fade-item">
+        <p class="cat">💰 金運</p>
+        <p class="cat-stars" id="moneyStars"></p>
+        <p class="cat-comment" id="moneyComment"></p>
+      </div>
+    </div>
+
+    <div class="card lucky-card fade-item">
+      <div class="lucky-row">
+        <span class="lucky-label">ラッキーカラー</span>
+        <span class="lucky-value"><span class="color-swatch" id="colorSwatch"></span><span id="luckyColor"></span></span>
+      </div>
+      <div class="lucky-row">
+        <span class="lucky-label">ラッキーアイテム</span>
+        <span class="lucky-value" id="luckyItem"></span>
+      </div>
+      <div class="lucky-row" style="flex-wrap: wrap;">
+        <span class="lucky-label">運命数(数秘術)</span>
+        <span class="lucky-value" id="lifePathValue"></span>
+        <span class="numerology-desc" id="lifePathDesc"></span>
+        <a class="detail-link" id="lifePathLink" href="unmeisu.html">▶ あなたの運命数をくわしく見る</a>
+      </div>
+    </div>
+
+    <div class="card advice-card fade-item">
+      <p class="advice-label">今日のひとこと</p>
+      <p class="advice-text" id="adviceText"></p>
+    </div>
+
+    <div class="share-row fade-item">
+      <a class="share-btn x-btn" id="shareX" target="_blank" rel="noopener">𝕏 結果をポスト</a>
+      <a class="share-btn line-btn" id="shareLine" target="_blank" rel="noopener">💬 LINEで送る</a>
+    </div>
+    <p class="retry-note">明日になると結果が変わります。<br>毎朝の習慣にどうぞ 🌅</p>
+  </section>
+
+  <footer>
+    <nav class="footer-links">
+      <a href="aishou.html">相性占い</a>|<a href="unmeisu.html">運命数1〜33の意味</a>|<a href="tarot.html">タロット22枚の意味</a>|<a href="privacy.html">プライバシーポリシー</a>
+    </nav>
+    <p>※本サービスは娯楽を目的としたものであり、結果や効果を保証するものではありません。</p>
+    <p>© 2026 星詠み</p>
+  </footer>
+</main>
+
+<script>
+"use strict";
+
+/* ---------- 星空背景 ---------- */
+(function () {
+  const canvas = document.getElementById("stars");
+  const ctx = canvas.getContext("2d");
+  let stars = [];
+  function resize() {
+    canvas.width = window.innerWidth;
+    canvas.height = window.innerHeight;
+    const count = Math.floor((canvas.width * canvas.height) / 6000);
+    stars = Array.from({ length: count }, () => ({
+      x: Math.random() * canvas.width,
+      y: Math.random() * canvas.height,
+      r: Math.random() * 1.4 + 0.3,
+      phase: Math.random() * Math.PI * 2,
+      speed: Math.random() * 0.015 + 0.004
+    }));
+  }
+  function draw() {
+    ctx.clearRect(0, 0, canvas.width, canvas.height);
+    for (const s of stars) {
+      s.phase += s.speed;
+      const alpha = 0.35 + 0.55 * (0.5 + 0.5 * Math.sin(s.phase));
+      ctx.beginPath();
+      ctx.arc(s.x, s.y, s.r, 0, Math.PI * 2);
+      ctx.fillStyle = "rgba(236, 233, 244," + alpha.toFixed(3) + ")";
+      ctx.fill();
+    }
+    requestAnimationFrame(draw);
+  }
+  window.addEventListener("resize", resize);
+  resize();
+  draw();
+})();
+
+/* ---------- 決定論的乱数(名前+生年月日+日付で毎日固定) ---------- */
+function hashString(str) {
+  let h = 2166136261;
+  for (let i = 0; i < str.length; i++) {
+    h ^= str.charCodeAt(i);
+    h = Math.imul(h, 16777619);
+  }
+  return h >>> 0;
+}
+function mulberry32(seed) {
+  return function () {
+    seed |= 0;
+    seed = (seed + 0x6D2B79F5) | 0;
+    let t = Math.imul(seed ^ (seed >>> 15), 1 | seed);
+    t = (t + Math.imul(t ^ (t >>> 7), 61 | t)) ^ t;
+    return ((t ^ (t >>> 14)) >>> 0) / 4294967296;
+  };
+}
+function pick(rng, arr) { return arr[Math.floor(rng() * arr.length)]; }
+function rollScore(rng) {
+  // 1〜5。3〜4を出やすくして「当たってる感」と満足度を両立
+  const w = [5, 16, 30, 33, 16];
+  let r = rng() * 100;
+  for (let i = 0; i < w.length; i++) { r -= w[i]; if (r < 0) return i + 1; }
+  return 3;
+}
+
+/* ---------- 占いデータ ---------- */
+const TAROT = [
+  { name: "愚者", emoji: "🃏", keyword: "自由・はじまり", msg: "身軽さが今日の武器。深く考えすぎず、心が向く方へ一歩踏み出してみて。" },
+  { name: "魔術師", emoji: "✨", keyword: "創造・才能", msg: "あなたの中に必要な道具はすべて揃っています。思いついたことを形にする日。" },
+  { name: "女教皇", emoji: "📖", keyword: "直感・静けさ", msg: "答えは外ではなく内側に。静かな時間をつくると、大事なひらめきが降りてきます。" },
+  { name: "女帝", emoji: "🌹", keyword: "豊かさ・愛情", msg: "与えたものが巡って返ってくる日。人にも自分にも、少しだけ優しく。" },
+  { name: "皇帝", emoji: "👑", keyword: "安定・決断", msg: "土台を固めるのに最適な日。決めるべきことは、堂々と決めて大丈夫。" },
+  { name: "教皇", emoji: "🕊️", keyword: "導き・信頼", msg: "信頼できる人の助言が鍵。素直に頼ることで道がひらけます。" },
+  { name: "恋人", emoji: "💞", keyword: "愛・選択", msg: "心が動いた方を選んで正解。人とのつながりに恵まれる一日です。" },
+  { name: "戦車", emoji: "🏇", keyword: "前進・勝利", msg: "迷いを置いて突き進む日。スピード感がそのまま追い風になります。" },
+  { name: "力", emoji: "🦁", keyword: "内なる強さ", msg: "力ずくではなく、しなやかさで乗り越えられる日。焦らずいきましょう。" },
+  { name: "隠者", emoji: "🏮", keyword: "内省・探求", msg: "ひとりの時間が宝物になる日。読書や学びに向いています。" },
+  { name: "運命の輪", emoji: "🎡", keyword: "転機・チャンス", msg: "流れが変わるタイミング。偶然の出来事にこそ注目してみて。" },
+  { name: "正義", emoji: "⚖️", keyword: "バランス・公正", msg: "フェアな姿勢が信頼を呼びます。白黒つけたいことは今日が好機。" },
+  { name: "吊るされた男", emoji: "🙃", keyword: "視点の転換", msg: "立ち止まることは後退ではありません。角度を変えると突破口が見えます。" },
+  { name: "死神", emoji: "🦋", keyword: "再生・区切り", msg: "手放すことで新しいものが入ってくる日。過去に区切りをつける絶好機。" },
+  { name: "節制", emoji: "🫖", keyword: "調和・ほどよさ", msg: "「ほどほど」が最強の日。無理をしないバランス感覚が幸運を招きます。" },
+  { name: "悪魔", emoji: "🔗", keyword: "誘惑・執着", msg: "甘い誘いにはひと呼吸。夜更かしや衝動買いを避けるだけで運気は守れます。" },
+  { name: "塔", emoji: "⚡", keyword: "刷新・気づき", msg: "予定変更は悪いことではありません。壊れた予定の先に、より良い形があります。" },
+  { name: "星", emoji: "🌟", keyword: "希望・癒やし", msg: "願いごとをするのに最適な夜。未来への種まきが実を結びやすい日です。" },
+  { name: "月", emoji: "🌙", keyword: "感受性・夢", msg: "感性が冴える日。不安は幻のことが多いので、事実だけを見て。" },
+  { name: "太陽", emoji: "☀️", keyword: "成功・生命力", msg: "最強クラスのカード。素直な明るさが、人もチャンスも引き寄せます。" },
+  { name: "審判", emoji: "📯", keyword: "復活・再挑戦", msg: "一度あきらめたことに再び光が当たる日。再挑戦・再連絡が吉。" },
+  { name: "世界", emoji: "🌍", keyword: "完成・達成", msg: "ひとつの物事が美しく完結する日。仕上げ・締めくくりに最適です。" }
+];
+
+const LIFE_PATH = {
+  1: { title: "開拓者", desc: "自ら道を切りひらくリーダーの星。決断の早さと行動力が最大の武器です。" },
+  2: { title: "調和の人", desc: "人と人をつなぐ繊細なバランサー。寄り添う力が信頼を生みます。" },
+  3: { title: "表現者", desc: "楽しませる天才。あなたの言葉と笑顔が、場の空気を明るく変えます。" },
+  4: { title: "築く人", desc: "コツコツと信頼を積み上げる堅実派。継続力は誰にも負けません。" },
+  5: { title: "自由の人", desc: "変化と冒険を愛する行動派。新しい環境ほど輝けるタイプです。" },
+  6: { title: "愛の人", desc: "面倒見がよく、周囲から自然と頼られる存在。愛情深さが運を呼びます。" },
+  7: { title: "探求者", desc: "本質を見抜く分析家。深く掘り下げる集中力が才能です。" },
+  8: { title: "実現者", desc: "目標を現実にするパワーの持ち主。豊かさと縁が深い星です。" },
+  9: { title: "賢者", desc: "広い視野と共感力を持つ理想家。人のために動くほど運が巡ります。" },
+  11: { title: "直感の人", desc: "鋭いインスピレーションを持つ特別な星(マスターナンバー)。感じたことは大抵正しいのです。" },
+  22: { title: "大器の人", desc: "大きな夢を現実にできる稀有な星(マスターナンバー)。スケールの大きさを恐れないで。" },
+  33: { title: "慈愛の人", desc: "無条件の愛で人を癒やす最も稀な星(マスターナンバー)。存在そのものが誰かの支えに。" }
+};
+
+const OVERALL_COMMENTS = {
+  1: "今日は静かな充電日。頑張らないことが、運気を貯めるいちばんの近道です。",
+  2: "ペースを落として丁寧に過ごすが吉。小さな幸せに気づけると流れが変わります。",
+  3: "穏やかで安定した一日。いつも通りの自分で過ごすのがいちばんです。",
+  4: "追い風が吹いています。気になっていたことに挑戦するなら今日。",
+  5: "最高の星まわり。直感を信じて動けば、想像以上の一日になります。"
+};
+const LOVE_COMMENTS = {
+  1: "今日は自分を大切にする日。心の充電が明日の魅力になります。",
+  2: "焦りは禁物。聞き役に回ると、思わぬ好印象につながりそう。",
+  3: "穏やかな運気。さりげない気配りが距離を少しずつ縮めます。",
+  4: "素直な言葉が相手の心に届く日。「ありがとう」を口に出して。",
+  5: "恋愛運は絶好調。積極的な一歩が最高の展開を呼び込みます。"
+};
+const WORK_COMMENTS = {
+  1: "今日は守りの日。確認とタスク整理に充てると後で大きく効きます。",
+  2: "小さなミスに注意。ひと呼吸おいてから取りかかれば問題なし。",
+  3: "コツコツ型の一日。目の前のことを丁寧にこなせば着実に前進。",
+  4: "集中力が高まる日。後回しにしていた課題に取り組むチャンス。",
+  5: "仕事運は最高潮。大事な決断や提案は今日のうちに。"
+};
+const MONEY_COMMENTS = {
+  1: "財布のひもは固めに。今日の我慢が近い将来の実りを呼びます。",
+  2: "衝動買いに注意。買う前に一晩寝かせるのが吉。",
+  3: "収支は安定。小さな節約が未来の安心につながります。",
+  4: "金運上昇中。学びへの投資は特に大きなリターンになりそう。",
+  5: "金運絶好調。良いお金の流れが生まれる日。感謝して受け取って。"
+};
+
+const LUCKY_COLORS = [
+  { name: "茜色(あかね)", hex: "#B7282E" },
+  { name: "山吹色(やまぶき)", hex: "#F8B500" },
+  { name: "若草色(わかくさ)", hex: "#A8C97F" },
+  { name: "瑠璃色(るり)", hex: "#1E50A2" },
+  { name: "藤色(ふじ)", hex: "#BBA1CB" },
+  { name: "珊瑚色(さんご)", hex: "#F5B1AA" },
+  { name: "翡翠色(ひすい)", hex: "#38B48B" },
+  { name: "金色(こんじき)", hex: "#E6B422" },
+  { name: "桃色(もも)", hex: "#F09199" },
+  { name: "空色(そら)", hex: "#A0D8EF" },
+  { name: "銀鼠(ぎんねず)", hex: "#AFAFB0" },
+  { name: "菫色(すみれ)", hex: "#7058A3" }
+];
+
+const LUCKY_ITEMS = [
+  "パワーストーンのブレスレット", "香りのよいハンドクリーム", "白いハンカチ", "淹れたてのコーヒー",
+  "小さな観葉植物", "手帳とお気に入りのペン", "好きな音楽のプレイリスト", "丸いモチーフのアクセサリー",
+  "温かいお茶", "読みかけの本", "手鏡", "星モチーフの小物", "おろしたての靴下", "柑橘系のお菓子",
+  "青いペン", "お気に入りのマグカップ", "折りたたみ傘", "キャンドル", "腕時計", "ひとかけのチョコレート"
+];
+
+const ADVICE = [
+  "朝いちばんに窓を開けて、深呼吸をひとつ。",
+  "迷ったら、楽しそうな方を選んでみて。",
+  "今日出会う人に、ひとつだけ多く「ありがとう」を。",
+  "机の上をひとつ片づけると、心もひとつ軽くなります。",
+  "5分だけ早く家を出ると、いいことがありそう。",
+  "しばらく連絡していないあの人に、ひとことメッセージを。",
+  "今日の空を一度だけ、立ち止まって見上げてみて。",
+  "小さな約束こそ、きちんと守るが吉。",
+  "夜はスマホを早めに置いて、ゆっくり湯船に浸かって。",
+  "「まあいっか」の一言が、今日のあなたを守ります。",
+  "新しい道を通って帰ると、素敵な発見がありそう。",
+  "甘いものはご褒美のタイミングで。効果が倍になります。",
+  "姿勢を正すだけで、運気は少し上を向きます。",
+  "今日メモしたアイデアが、後々の宝物になる予感。",
+  "眠る前に、今日よかったことを3つ思い出してみて。",
+  "靴を磨くと、足元から運が整います。"
+];
+
+/* ---------- 数秘術:運命数 ---------- */
+function lifePathNumber(dobStr) {
+  let digits = dobStr.replace(/-/g, "");
+  let n = [...digits].reduce((a, c) => a + Number(c), 0);
+  while (n > 9 && n !== 11 && n !== 22 && n !== 33) {
+    n = [...String(n)].reduce((a, c) => a + Number(c), 0);
+  }
+  return n;
+}
+
+/* ---------- メイン ---------- */
+const WEEKDAYS = ["日", "月", "火", "水", "木", "金", "土"];
+const now = new Date();
+const todayStr = now.getFullYear() + "-" +
+  String(now.getMonth() + 1).padStart(2, "0") + "-" +
+  String(now.getDate()).padStart(2, "0");
+document.getElementById("todayLabel").textContent =
+  now.getFullYear() + "年" + (now.getMonth() + 1) + "月" + now.getDate() + "日(" + WEEKDAYS[now.getDay()] + ")";
+
+const $ = (id) => document.getElementById(id);
+function stars(n) { return "★".repeat(n) + "☆".repeat(5 - n); }
+
+// 前回の入力を復元(リピート利用のハードルを下げる)
+try {
+  const saved = JSON.parse(localStorage.getItem("hoshiyomi_user") || "null");
+  if (saved) {
+    $("nameInput").value = saved.name || "";
+    $("dobInput").value = saved.dob || "";
+  }
+} catch (e) { /* localStorage が使えない環境でも動作継続 */ }
+
+$("divineBtn").addEventListener("click", () => {
+  const name = $("nameInput").value.trim();
+  const dob = $("dobInput").value;
+  const err = $("errorMsg");
+  if (!name || !dob) {
+    err.textContent = !name ? "お名前を入れてください(ニックネームでもOKです)" : "生年月日を選んでください";
+    err.style.display = "block";
+    return;
+  }
+  err.style.display = "none";
+
+  try {
+    localStorage.setItem("hoshiyomi_user", JSON.stringify({ name, dob }));
+  } catch (e) { /* 保存できなくても占いは実行 */ }
+
+  const rng = mulberry32(hashString(name + "|" + dob + "|" + todayStr));
+
+  const love = rollScore(rng);
+  const work = rollScore(rng);
+  const money = rollScore(rng);
+  const overall = Math.min(5, Math.max(1, Math.round((love + work + money) / 3 + (rng() - 0.45))));
+
+  const tarot = pick(rng, TAROT);
+  const color = pick(rng, LUCKY_COLORS);
+  const item = pick(rng, LUCKY_ITEMS);
+  const advice = pick(rng, ADVICE);
+  const lp = lifePathNumber(dob);
+  const lpInfo = LIFE_PATH[lp];
+
+  $("resultTitle").textContent = "✦ " + name + " さんの今日の運勢 ✦";
+  $("tarotEmoji").textContent = tarot.emoji;
+  $("tarotName").textContent = tarot.name;
+  $("tarotKeyword").textContent = "― " + tarot.keyword + " ―";
+  $("tarotMsg").textContent = "今日のカードは「" + tarot.name + "」。" + tarot.msg;
+  $("overallLabel").textContent = "総合運";
+  $("overallStars").textContent = stars(overall);
+  $("overallComment").textContent = OVERALL_COMMENTS[overall];
+  $("loveStars").textContent = stars(love);
+  $("loveComment").textContent = LOVE_COMMENTS[love];
+  $("workStars").textContent = stars(work);
+  $("workComment").textContent = WORK_COMMENTS[work];
+  $("moneyStars").textContent = stars(money);
+  $("moneyComment").textContent = MONEY_COMMENTS[money];
+  $("colorSwatch").style.background = color.hex;
+  $("luckyColor").textContent = color.name;
+  $("luckyItem").textContent = item;
+  $("lifePathValue").textContent = lp + "「" + lpInfo.title + "」";
+  $("lifePathDesc").textContent = lpInfo.desc;
+  $("lifePathLink").href = "unmeisu.html#n" + lp;
+  $("tarotLink").href = "tarot.html#card" + TAROT.indexOf(tarot);
+  $("adviceText").textContent = advice;
+
+  const shareText = "【星詠み】今日の運勢は 総合" + stars(overall) +
+    " 🔮カードは「" + tarot.name + "」でした ✨ #星詠み #今日の運勢";
+  const url = (location.protocol.indexOf("http") === 0)
+    ? location.origin + location.pathname
+    : "https://haraguchikazuya5555.github.io/hoshiyomi/";
+  $("shareX").href = "https://twitter.com/intent/tweet?text=" + encodeURIComponent(shareText) +
+    "&url=" + encodeURIComponent(url + "?utm_source=x&utm_medium=social&utm_campaign=daily_share");
+  $("shareLine").href = "https://social-plugins.line.me/lineit/share?url=" +
+    encodeURIComponent(url + "?utm_source=line&utm_medium=social&utm_campaign=daily_share") +
+    "&text=" + encodeURIComponent(shareText);
+
+  // 演出:カードを裏に戻してから結果表示 → めくる → 順番にフェードイン
+  const card = $("tarotCard");
+  const result = $("result");
+  card.classList.remove("flipped");
+  document.querySelectorAll(".fade-item").forEach((el) => el.classList.remove("visible"));
+  result.classList.add("show");
+  result.scrollIntoView({ behavior: "smooth", block: "start" });
+
+  setTimeout(() => card.classList.add("flipped"), 700);
+  document.querySelectorAll(".fade-item").forEach((el, i) => {
+    setTimeout(() => el.classList.add("visible"), 1500 + i * 220);
+  });
+});
+</script>
+</body>
+</html>

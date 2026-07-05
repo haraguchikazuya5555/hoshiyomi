@@ -1,0 +1,211 @@
+/* 星詠み — 解説ページ共通スタイル */
+:root {
+  --bg-deep: #0b1026;
+  --bg-mid: #171339;
+  --gold: #e6c67a;
+  --gold-soft: #cfae64;
+  --text: #ece9f4;
+  --text-dim: #a9a3c2;
+  --card-bg: rgba(255, 255, 255, 0.06);
+  --card-border: rgba(230, 198, 122, 0.28);
+}
+* { margin: 0; padding: 0; box-sizing: border-box; }
+html { scroll-behavior: smooth; }
+body {
+  font-family: "Zen Kaku Gothic New", "Hiragino Kaku Gothic ProN", sans-serif;
+  color: var(--text);
+  background: linear-gradient(180deg, var(--bg-deep) 0%, var(--bg-mid) 55%, #241640 100%);
+  min-height: 100vh;
+  overflow-x: hidden;
+}
+#stars { position: fixed; inset: 0; z-index: 0; pointer-events: none; }
+main {
+  position: relative;
+  z-index: 1;
+  max-width: 720px;
+  margin: 0 auto;
+  padding: 32px 20px 40px;
+}
+a { color: var(--gold-soft); }
+
+.crumb { font-size: 12px; color: var(--text-dim); margin-bottom: 26px; }
+.crumb a { text-decoration: none; }
+.crumb a:hover { text-decoration: underline; }
+.crumb span.sep { margin: 0 8px; }
+
+.page-hero { text-align: center; margin-bottom: 28px; }
+.page-hero h1 {
+  font-family: "Shippori Mincho", serif;
+  font-size: 26px;
+  letter-spacing: 0.15em;
+  color: var(--gold);
+  text-shadow: 0 0 20px rgba(230, 198, 122, 0.3);
+  margin-bottom: 14px;
+}
+.page-hero .lead { font-size: 13px; line-height: 2.1; color: var(--text-dim); text-align: left; }
+
+.card {
+  background: var(--card-bg);
+  border: 1px solid var(--card-border);
+  border-radius: 16px;
+  padding: 24px 22px;
+  backdrop-filter: blur(8px);
+  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.35);
+  margin-bottom: 18px;
+}
+
+.intro h2 {
+  font-family: "Shippori Mincho", serif;
+  font-size: 17px;
+  color: var(--gold);
+  letter-spacing: 0.1em;
+  margin-bottom: 12px;
+}
+.intro p { font-size: 13.5px; line-height: 2.1; margin-bottom: 10px; }
+.intro .formula {
+  font-size: 13px;
+  background: rgba(11, 16, 38, 0.55);
+  border: 1px dashed rgba(169, 163, 194, 0.35);
+  border-radius: 10px;
+  padding: 12px 14px;
+  line-height: 1.9;
+  margin: 12px 0;
+}
+
+/* 簡易計算機 */
+.calc { display: flex; gap: 10px; flex-wrap: wrap; align-items: center; margin-top: 14px; }
+.calc input {
+  padding: 10px 12px;
+  font-size: 15px;
+  font-family: inherit;
+  color: var(--text);
+  background: rgba(11, 16, 38, 0.6);
+  border: 1px solid rgba(169, 163, 194, 0.35);
+  border-radius: 10px;
+  outline: none;
+  color-scheme: dark;
+}
+.calc button {
+  padding: 10px 20px;
+  font-family: "Shippori Mincho", serif;
+  font-size: 14px;
+  letter-spacing: 0.1em;
+  color: #1b1230;
+  background: linear-gradient(135deg, #f0d692, var(--gold-soft));
+  border: none;
+  border-radius: 999px;
+  cursor: pointer;
+}
+.calc-result { width: 100%; font-size: 14px; margin-top: 6px; min-height: 1.5em; }
+.calc-result a { color: var(--gold); }
+
+/* 目次 */
+.toc { display: flex; flex-wrap: wrap; gap: 8px; justify-content: center; margin: 22px 0 26px; }
+.toc a {
+  display: inline-block;
+  padding: 7px 13px;
+  font-size: 12.5px;
+  color: var(--gold-soft);
+  border: 1px solid var(--card-border);
+  border-radius: 999px;
+  text-decoration: none;
+  background: rgba(255, 255, 255, 0.04);
+  transition: background 0.2s, color 0.2s;
+}
+.toc a:hover { background: rgba(230, 198, 122, 0.15); color: var(--gold); }
+
+/* 各項目 */
+.entry { scroll-margin-top: 16px; }
+.entry-head {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  padding-bottom: 14px;
+  margin-bottom: 6px;
+  border-bottom: 1px dashed rgba(169, 163, 194, 0.3);
+}
+.entry-num {
+  flex-shrink: 0;
+  width: 52px;
+  height: 52px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-family: "Shippori Mincho", serif;
+  font-size: 24px;
+  color: var(--gold);
+  border: 1px solid var(--card-border);
+  border-radius: 50%;
+  background: rgba(230, 198, 122, 0.08);
+}
+.entry-emoji { flex-shrink: 0; font-size: 40px; filter: drop-shadow(0 0 10px rgba(230, 198, 122, 0.4)); }
+.entry-head h2 {
+  font-family: "Shippori Mincho", serif;
+  font-size: 19px;
+  color: var(--gold);
+  letter-spacing: 0.08em;
+}
+.entry-head h2 .en { font-size: 11px; color: var(--text-dim); letter-spacing: 0.12em; margin-left: 10px; font-family: inherit; }
+.entry-kw { font-size: 12px; color: var(--text-dim); margin-top: 4px; letter-spacing: 0.05em; }
+.entry h3 { font-size: 13.5px; color: var(--gold-soft); letter-spacing: 0.08em; margin: 18px 0 6px; }
+.entry h3::before { content: "◆ "; font-size: 10px; vertical-align: 2px; }
+.entry p { font-size: 13.5px; line-height: 2.05; }
+.entry .links a { margin-right: 10px; }
+
+/* タロット正位置・逆位置 */
+.updown { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; margin-top: 16px; }
+.updown > div {
+  background: rgba(11, 16, 38, 0.45);
+  border: 1px solid rgba(169, 163, 194, 0.2);
+  border-radius: 12px;
+  padding: 14px 16px;
+}
+.updown h3 { margin: 0 0 6px; }
+.updown .pos h3 { color: #a8d8b0; }
+.updown .rev h3 { color: #d8a8b8; }
+.updown .kw { font-size: 12px; color: var(--text-dim); margin-bottom: 8px; }
+.updown p { font-size: 13px; line-height: 1.95; }
+.hint {
+  margin-top: 16px;
+  padding: 10px 14px;
+  font-size: 13px;
+  line-height: 1.9;
+  border-left: 3px solid var(--gold-soft);
+  background: rgba(230, 198, 122, 0.07);
+  border-radius: 0 10px 10px 0;
+}
+.backtop {
+  display: inline-block;
+  margin-top: 14px;
+  font-size: 11.5px;
+  color: var(--text-dim);
+  text-decoration: none;
+}
+.backtop:hover { color: var(--gold-soft); }
+
+/* CTA */
+.cta-box { text-align: center; margin: 34px 0 10px; }
+.cta {
+  display: inline-block;
+  padding: 15px 40px;
+  font-family: "Shippori Mincho", serif;
+  font-size: 16px;
+  letter-spacing: 0.2em;
+  color: #1b1230;
+  background: linear-gradient(135deg, #f0d692, var(--gold-soft));
+  border-radius: 999px;
+  text-decoration: none;
+  box-shadow: 0 4px 20px rgba(230, 198, 122, 0.35);
+  transition: transform 0.15s, box-shadow 0.15s;
+}
+.cta:hover { transform: translateY(-2px); box-shadow: 0 8px 26px rgba(230, 198, 122, 0.5); }
+
+footer { margin-top: 44px; text-align: center; font-size: 11px; color: var(--text-dim); line-height: 2; }
+.footer-links { margin-bottom: 8px; font-size: 12px; }
+.footer-links a { margin: 0 8px; text-decoration: none; }
+.footer-links a:hover { text-decoration: underline; }
+
+@media (max-width: 520px) {
+  .updown { grid-template-columns: 1fr; }
+  .page-hero h1 { font-size: 22px; }
+}
