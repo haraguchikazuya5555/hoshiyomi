@@ -1,0 +1,85 @@
+# 星詠み 販促キット(X投稿テンプレ・ローンチ手順)
+
+投稿はすべて下書きです。**自動投稿はしていません。** コピペして使ってください。
+URL は https://haraguchikazuya5555.github.io/hoshiyomi/ (独自ドメイン取得後は差し替え)。
+
+## ローンチ投稿(初日)
+
+```
+無料の占いサイトを作りました🌙
+
+「星詠み」
+・生年月日と名前で今日の運勢
+・タロット×数秘術×ラッキーカラー
+・結果は毎日0時に変わる
+・登録不要、データは端末の外に出ません
+
+毎朝の習慣にどうぞ🔮
+https://haraguchikazuya5555.github.io/hoshiyomi/?utm_source=x&utm_medium=social&utm_campaign=launch
+```
+
+## 相性占い訴求(2日目以降)
+
+```
+気になるあの人との相性、名前と誕生日だけで%診断できます💫
+
+「運命級の相性」が出たらぜひ相手に送りつけてください。
+並び順を入れ替えても同じ結果になる、ちゃんとした(?)設計です。
+
+#相性占い
+https://haraguchikazuya5555.github.io/hoshiyomi/aishou.html?utm_source=x&utm_medium=social&utm_campaign=aishou
+```
+
+## 毎朝の定型投稿(7:00〜8:00推奨)
+
+その日自分で占った結果を添えると反応が良い。
+
+```
+おはようございます🌅
+今日(◯月◯日)の私の運勢は 総合★★★★☆
+カードは「◯◯」でした🔮
+
+あなたの今日は?(3秒で占えます)
+#今日の運勢 #星詠み
+https://haraguchikazuya5555.github.io/hoshiyomi/?utm_source=x&utm_medium=social&utm_campaign=daily
+```
+
+## 解説コンテンツの切り出し投稿(週2〜3)
+
+解説ページから1トピックを抜いて投稿→詳細リンク。SEOと相互に効く。
+
+```
+【運命数7の人の特徴】
+・本質を見抜く観察眼
+・ひとり時間で充電するタイプ
+・専門性を磨くほど収入が伸びる
+
+あなたの運命数は生年月日を全部足すだけ。
+計算機はこちら👇
+https://haraguchikazuya5555.github.io/hoshiyomi/unmeisu.html?utm_source=x&utm_medium=social&utm_campaign=content
+```
+
+```
+タロットの「死神」、実は悪いカードじゃありません🦋
+
+意味は「終わりと再生」。
+断捨離・区切り・再出発のカードです。
+
+22枚全部の意味はこちら👇
+https://haraguchikazuya5555.github.io/hoshiyomi/tarot.html?utm_source=x&utm_medium=social&utm_campaign=content
+```
+
+## note記事の構成案(SEOの外部リンク獲得用)
+
+タイトル案: 「登録不要・無料の占いサイトを個人開発した話(技術と設計)」
+1. なぜ占いアプリか(毎日変わる×シェアされる構造)
+2. 決定論的乱数の設計(同じ人は同じ日なら同じ結果になる仕組み)
+3. 収益化の計画(AdSense/アフィリエイト)
+4. 作ったサイトへのリンク
+
+## 運用ルール
+
+- ハッシュタグは2個まで(#今日の運勢 #星詠み / #相性占い)
+- 毎朝投稿は「自分の結果」を必ず添える(スクショでも可)
+- 反応が良かった投稿の型をSearch Console/GA4の流入と突き合わせて週1で見直す
+- 占い垢・スピ垢との交流は無理にしない(通報リスクとトーンのミスマッチ回避)
