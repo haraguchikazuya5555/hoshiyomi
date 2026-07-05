@@ -41,18 +41,13 @@
 - [x] GitHub Pagesへデプロイ(公開URL取得)
 - [x] X投稿テンプレ・ローンチ手順(docs/marketing.md)
 
-## ユーザーにしかできないこと(優先順)
+## 進捗(2026-07-05 更新)
 
-1. **Google Search Console 登録**(無料・5分)
-   https://search.google.com/search-console → URLプレフィックスで公開URLを登録 → sitemap.xml を送信。
-   SEO流入はここから始まる。最優先。
-2. **GA4 導入**(無料・10分)
-   analytics.google.com でプロパティ作成 → 測定ID(G-XXXX)を index.html のコメント箇所に貼って解除。
-   計測なしでは何も改善できない。
-3. **X アカウントでのローンチ投稿**(docs/marketing.md のテンプレ使用)
-4. **独自ドメイン**(年1,000円前後)
-   AdSense審査の通過率が大きく上がる。お名前.com等で取得し、GitHub PagesのCustom domainに設定。
-5. **AdSense申請**(独自ドメイン後)
+1. ~~Google Search Console 登録~~ **✅完了(自動実行)** — プロパティ登録・所有権確認(GA経由で自動確認)・sitemap.xml送信・トップページのインデックス登録リクエストまで完了。sitemapのステータス「取得できませんでした」は新規サイトの初回あるあるで、24〜48hで自動解消される
+2. ~~GA4 導入~~ **✅完了(自動実行)** — プロパティ「星詠み占い」作成、測定ID **G-6YP1XSSTML**、全5ページにタグ実装・本番反映確認済み。データはanalytics.google.comで翌日から確認可能
+3. **X アカウント作成+ローンチ投稿**(要ユーザー)— docs/x-account-kit.md にコピペで完成する一式あり
+4. **独自ドメイン購入**(要ユーザー・年10ドル前後)— docs/domain-adsense-guide.md に空きドメイン調査済み・購入後の設定はこちらで自動実行可
+5. **AdSense申請**(独自ドメイン後)— 同ガイド参照。審査コードとads.txtの設置はこちらで実行可
 6. **楽天/Amazonアフィリエイト**(ラッキーアイテムのリンク化)
 
 ## KPI(週次で見る数字)
