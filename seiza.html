@@ -1,0 +1,201 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>今日の12星座占いランキング|毎日0時更新・無料|星詠み</title>
+<meta name="description" content="今日の12星座の運勢を1位から12位までランキングで毎日更新。各星座の運勢コメントとラッキーカラーつき。登録不要・無料の星座占い。">
+<meta property="og:title" content="今日の12星座占いランキング|星詠み">
+<meta property="og:description" content="あなたの星座は今日何位?毎日0時更新の12星座ランキング。">
+<meta property="og:type" content="website">
+<meta property="og:url" content="https://haraguchikazuya5555.github.io/hoshiyomi/seiza.html">
+<meta property="og:image" content="https://haraguchikazuya5555.github.io/hoshiyomi/assets/og-image.png">
+<link rel="canonical" href="https://haraguchikazuya5555.github.io/hoshiyomi/seiza.html">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Shippori+Mincho:wght@500;700&family=Zen+Kaku+Gothic+New:wght@400;500;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="assets/site.css">
+<link rel="icon" type="image/png" href="assets/favicon-32.png">
+<link rel="apple-touch-icon" href="assets/icon-180.png">
+<!-- Google tag (gtag.js) -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-6YP1XSSTML"></script>
+<script>window.dataLayer=window.dataLayer||[];function gtag(){dataLayer.push(arguments)};gtag('js',new Date());gtag('config','G-6YP1XSSTML');</script>
+<style>
+.rank-date {
+  text-align: center;
+  font-family: "Shippori Mincho", serif;
+  font-size: 16px;
+  color: var(--gold-soft);
+  letter-spacing: 0.2em;
+  margin-bottom: 22px;
+}
+.rank-card {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  padding: 16px 18px;
+  margin-bottom: 12px;
+}
+.rank-badge {
+  flex-shrink: 0;
+  width: 46px;
+  height: 46px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-family: "Shippori Mincho", serif;
+  font-size: 17px;
+  color: var(--gold);
+  border: 1px solid var(--card-border);
+  border-radius: 50%;
+  background: rgba(230, 198, 122, 0.08);
+}
+.rank-card.top1 .rank-badge {
+  background: linear-gradient(135deg, #f0d692, var(--gold-soft));
+  color: #1b1230;
+  box-shadow: 0 0 18px rgba(230, 198, 122, 0.5);
+}
+.rank-card.top2 .rank-badge, .rank-card.top3 .rank-badge {
+  background: rgba(230, 198, 122, 0.22);
+}
+.rank-body { flex: 1; min-width: 0; }
+.rank-sign {
+  font-family: "Shippori Mincho", serif;
+  font-size: 16px;
+  color: var(--gold);
+  letter-spacing: 0.08em;
+}
+.rank-sign .period { font-size: 11px; color: var(--text-dim); margin-left: 8px; letter-spacing: 0.05em; }
+.rank-stars { font-size: 13px; color: var(--gold); letter-spacing: 0.1em; margin: 3px 0 6px; }
+.rank-comment { font-size: 12.5px; line-height: 1.85; }
+.rank-lucky { font-size: 11.5px; color: var(--text-dim); margin-top: 5px; display: flex; align-items: center; gap: 6px; }
+.rank-lucky .swatch {
+  width: 12px; height: 12px; border-radius: 50%;
+  border: 1.5px solid rgba(255, 255, 255, 0.55);
+  display: inline-block;
+}
+.seiza-note { text-align: center; font-size: 12px; color: var(--text-dim); line-height: 1.9; margin: 20px 0; }
+</style>
+</head>
+<body>
+<canvas id="stars"></canvas>
+<main>
+  <nav class="crumb"><a href="./">🌙 星詠み</a><span class="sep">›</span><span>今日の12星座ランキング</span></nav>
+
+  <header class="page-hero">
+    <h1>今日の12星座ランキング</h1>
+    <p class="lead">12星座の今日の運勢を、1位から12位までランキング形式でお届けします。結果は毎日0時に更新。あなたの星座は今日、何位でしょうか?</p>
+  </header>
+
+  <p class="rank-date" id="rankDate"></p>
+
+  <div id="rankList"></div>
+
+  <p class="seiza-note">下位の日は「充電日」のサイン。<br>名前と生年月日による、あなただけの詳しい運勢はトップページでどうぞ。</p>
+
+  <div class="cta-box">
+    <a class="cta" href="./">あなただけの運勢を占う →</a>
+  </div>
+
+  <footer>
+    <nav class="footer-links">
+      <a href="./">今日の運勢</a><a href="aishou.html">相性占い</a><a href="unmeisu.html">運命数の意味</a><a href="tarot.html">タロットの意味</a><a href="about.html">運営者情報</a><a href="privacy.html">プライバシーポリシー</a>
+    </nav>
+    <p>※本サービスは娯楽を目的としたものであり、結果や効果を保証するものではありません。</p>
+    <p>© 2026 星詠み</p>
+  </footer>
+</main>
+
+<script src="assets/stars.js"></script>
+<script>
+"use strict";
+
+const SIGNS = [
+  ["おひつじ座", "♈", "3/21〜4/19"],
+  ["おうし座", "♉", "4/20〜5/20"],
+  ["ふたご座", "♊", "5/21〜6/21"],
+  ["かに座", "♋", "6/22〜7/22"],
+  ["しし座", "♌", "7/23〜8/22"],
+  ["おとめ座", "♍", "8/23〜9/22"],
+  ["てんびん座", "♎", "9/23〜10/23"],
+  ["さそり座", "♏", "10/24〜11/22"],
+  ["いて座", "♐", "11/23〜12/21"],
+  ["やぎ座", "♑", "12/22〜1/19"],
+  ["みずがめ座", "♒", "1/20〜2/18"],
+  ["うお座", "♓", "2/19〜3/20"]
+];
+
+const RANK_COMMENTS = [
+  "絶好調の1位!直感がすべて味方する日。迷ったら動いて正解です。",
+  "惜しくも2位。人からの引き立て運が抜群。頼られたら快く応えて吉。",
+  "表彰台の3位。コツコツ続けてきたことが評価されそうです。",
+  "安定の好調。丁寧なコミュニケーションがさらに運を伸ばします。",
+  "中の上の運気。新しいことを小さく始めるのに向いた日です。",
+  "穏やかな一日。いつも通りに過ごすのが一番の開運行動。",
+  "可もなく不可もなく。こまめな休憩で後半に運が上向きます。",
+  "少し慎重にいきたい日。確認をひとつ増やせば問題なしです。",
+  "焦りは禁物。今日は準備と整理に充てると明日がぐっと楽に。",
+  "言葉の行き違いに注意。ひと呼吸おいてから返事をどうぞ。",
+  "無理をしない日。好きなものに触れて心の充電を優先して。",
+  "今日は充電日。おいしいものと早めの睡眠が最強の開運術です。"
+];
+
+const RANK_STARS = [5, 5, 4, 4, 4, 3, 3, 3, 2, 2, 2, 1];
+
+const COLORS = [
+  ["茜色", "#B7282E"], ["山吹色", "#F8B500"], ["若草色", "#A8C97F"],
+  ["瑠璃色", "#1E50A2"], ["藤色", "#BBA1CB"], ["珊瑚色", "#F5B1AA"],
+  ["翡翠色", "#38B48B"], ["金色", "#E6B422"], ["桃色", "#F09199"],
+  ["空色", "#A0D8EF"], ["銀鼠", "#AFAFB0"], ["菫色", "#7058A3"]
+];
+
+/* 32bitハッシュ(murmur3 finalizer)。Python側(monitor.py)と完全一致させること */
+function rankKey(seed, i) {
+  let x = (seed + Math.imul(i, 0x9E3779B9)) >>> 0;
+  x ^= x >>> 16;
+  x = Math.imul(x, 0x85EBCA6B) >>> 0;
+  x ^= x >>> 13;
+  x = Math.imul(x, 0xC2B2AE35) >>> 0;
+  x ^= x >>> 16;
+  return x >>> 0;
+}
+
+/* seed(YYYYMMDD)→ 星座インデックスの順位配列。検証用にwindowへ公開 */
+window.rankingForSeed = function (seed) {
+  const idx = SIGNS.map((_, i) => i);
+  idx.sort((a, b) => rankKey(seed, b) - rankKey(seed, a));
+  return idx;
+};
+
+(function () {
+  const now = new Date();
+  const seed = now.getFullYear() * 10000 + (now.getMonth() + 1) * 100 + now.getDate();
+  const WEEKDAYS = ["日", "月", "火", "水", "木", "金", "土"];
+  document.getElementById("rankDate").textContent =
+    now.getFullYear() + "年" + (now.getMonth() + 1) + "月" + now.getDate() +
+    "日(" + WEEKDAYS[now.getDay()] + ")の運勢";
+
+  const order = window.rankingForSeed(seed);
+  const list = document.getElementById("rankList");
+  order.forEach((signIdx, rank) => {
+    const [name, emoji, period] = SIGNS[signIdx];
+    const color = COLORS[rankKey(seed, 100 + signIdx) % COLORS.length];
+    const stars = "★".repeat(RANK_STARS[rank]) + "☆".repeat(5 - RANK_STARS[rank]);
+    const card = document.createElement("article");
+    card.className = "card rank-card" + (rank < 3 ? " top" + (rank + 1) : "");
+    card.innerHTML =
+      '<div class="rank-badge">' + (rank + 1) + '位</div>' +
+      '<div class="rank-body">' +
+        '<p class="rank-sign">' + emoji + ' ' + name +
+          '<span class="period">' + period + '</span></p>' +
+        '<p class="rank-stars">' + stars + '</p>' +
+        '<p class="rank-comment">' + RANK_COMMENTS[rank] + '</p>' +
+        '<p class="rank-lucky"><span class="swatch" style="background:' + color[1] + '"></span>' +
+          'ラッキーカラー: ' + color[0] + '</p>' +
+      '</div>';
+    list.appendChild(card);
+  });
+})();
+</script>
+</body>
+</html>
