@@ -24,7 +24,7 @@ A      @     185.199.108.153
 A      @     185.199.109.153
 A      @     185.199.110.153
 A      @     185.199.111.153
-CNAME  www   haraguchikazuya5555.github.io
+CNAME  www   hoshiyomi365.github.io
 ```
 
 ## 3. GitHub Pages 側の設定(購入したら私に言ってください、こちらで実行します)

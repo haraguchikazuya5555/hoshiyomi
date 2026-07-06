@@ -4,7 +4,7 @@
 
 ## 公開URL
 
-**https://haraguchikazuya5555.github.io/hoshiyomi/**
+**https://hoshiyomi365.github.io/hoshiyomi/**
 
 ## ポジショニング
 

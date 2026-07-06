@@ -8,8 +8,8 @@
 <meta property="og:title" content="ふたりの相性占い|星詠み">
 <meta property="og:description" content="名前と生年月日だけで、ふたりの相性を%診断。今日のふたりの相性運も毎日更新。">
 <meta property="og:type" content="website">
-<meta property="og:image" content="https://haraguchikazuya5555.github.io/hoshiyomi/assets/og-image.png">
-<link rel="canonical" href="https://haraguchikazuya5555.github.io/hoshiyomi/aishou.html">
+<meta property="og:image" content="https://hoshiyomi365.github.io/hoshiyomi/assets/og-image.png">
+<link rel="canonical" href="https://hoshiyomi365.github.io/hoshiyomi/aishou.html">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Shippori+Mincho:wght@500;700&family=Zen+Kaku+Gothic+New:wght@400;500;700&display=swap" rel="stylesheet">
@@ -428,7 +428,7 @@ $("pairBtn").addEventListener("click", () => {
   $("adviceText").textContent = ADVICE_BY_TIER[tierIdx];
 
   const baseUrl = (location.protocol.indexOf("http") === 0)
-    ? location.origin + location.pathname : "https://haraguchikazuya5555.github.io/hoshiyomi/aishou.html";
+    ? location.origin + location.pathname : "https://hoshiyomi365.github.io/hoshiyomi/aishou.html";
   const shareText = "【星詠み】" + n1 + " と " + n2 + " の相性は " + total + "%「" + tier.label + "」でした 💫 #星詠み #相性占い";
   $("shareX").href = "https://twitter.com/intent/tweet?text=" + encodeURIComponent(shareText) +
     "&url=" + encodeURIComponent(baseUrl + "?utm_source=x&utm_medium=social&utm_campaign=aishou_share");

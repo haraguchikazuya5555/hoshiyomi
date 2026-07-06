@@ -1,4 +1,4 @@
 User-agent: *
 Allow: /
 
-Sitemap: https://haraguchikazuya5555.github.io/hoshiyomi/sitemap.xml
+Sitemap: https://hoshiyomi365.github.io/hoshiyomi/sitemap.xml

@@ -30,7 +30,7 @@
 ## プロフィールリンク
 
 ```
-https://haraguchikazuya5555.github.io/hoshiyomi/?utm_source=x&utm_medium=social&utm_campaign=profile
+https://hoshiyomi365.github.io/hoshiyomi/?utm_source=x&utm_medium=social&utm_campaign=profile
 ```
 (独自ドメイン取得後は差し替え)
 
@@ -54,7 +54,7 @@ https://haraguchikazuya5555.github.io/hoshiyomi/?utm_source=x&utm_medium=social&
 ・登録不要、結果は毎日0時に更新
 
 毎朝の習慣にどうぞ🔮
-https://haraguchikazuya5555.github.io/hoshiyomi/?utm_source=x&utm_medium=social&utm_campaign=launch
+https://hoshiyomi365.github.io/hoshiyomi/?utm_source=x&utm_medium=social&utm_campaign=launch
 ```
 
 ## 運用開始チェックリスト
