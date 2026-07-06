@@ -423,7 +423,7 @@ footer {
       </div>
       <div class="lucky-row">
         <span class="lucky-label">ラッキーアイテム</span>
-        <span class="lucky-value"><span id="luckyItem"></span><a class="detail-link" id="luckyItemLink" href="#" target="_blank" rel="nofollow sponsored noopener">🛒 Amazonで探す</a></span>
+        <span class="lucky-value"><span id="luckyItem"></span><a class="detail-link" id="luckyItemLink" href="#" target="_blank" rel="nofollow sponsored noopener">🛒 Amazonで探す</a><a class="detail-link" id="luckyItemRakuten" href="#" target="_blank" rel="nofollow sponsored noopener">🛍 楽天で探す</a></span>
       </div>
       <div class="lucky-row" style="flex-wrap: wrap;">
         <span class="lucky-label">運命数(数秘術)</span>
@@ -450,7 +450,7 @@ footer {
       <a href="seiza.html">12星座ランキング</a>|<a href="aishou.html">相性占い</a>|<a href="unmeisu.html">運命数1〜33の意味</a>|<a href="tarot.html">タロット22枚の意味</a>|<a href="about.html">運営者情報</a>|<a href="privacy.html">プライバシーポリシー</a>
     </nav>
     <p>※本サービスは娯楽を目的としたものであり、結果や効果を保証するものではありません。</p>
-    <p>※Amazonのアソシエイトとして、当サイトは適格販売により収入を得ています。</p>
+    <p>※Amazonのアソシエイトとして、当サイトは適格販売により収入を得ています。また、楽天アフィリエイトを利用しています。</p>
     <p>© 2026 星詠み</p>
   </footer>
 </main>
@@ -709,6 +709,8 @@ $("divineBtn").addEventListener("click", () => {
   $("luckyItem").textContent = item;
   $("luckyItemLink").href = "https://www.amazon.co.jp/s?k=" +
     encodeURIComponent(item) + "&tag=mj32js1232js1-22";
+  $("luckyItemRakuten").href = "https://hb.afl.rakuten.co.jp/hgc/51599805.1303bcec.51599806.e5d6a9f7/?pc=" +
+    encodeURIComponent("https://search.rakuten.co.jp/search/mall/" + encodeURIComponent(item) + "/");
   $("lifePathValue").textContent = lp + "「" + lpInfo.title + "」";
   $("lifePathDesc").textContent = lpInfo.desc;
   $("lifePathLink").href = "unmeisu.html#n" + lp;
