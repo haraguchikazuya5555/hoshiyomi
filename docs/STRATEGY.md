@@ -4,7 +4,7 @@
 
 ## 公開URL
 
-**https://hoshiyomi365.github.io/hoshiyomi/**
+**https://hoshiyomi365.com/**
 
 ## ポジショニング
 

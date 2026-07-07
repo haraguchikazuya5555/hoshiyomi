@@ -1,32 +1,32 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   <url>
-    <loc>https://hoshiyomi365.github.io/hoshiyomi/</loc>
+    <loc>https://hoshiyomi365.com/</loc>
     <changefreq>daily</changefreq>
     <priority>1.0</priority>
   </url>
   <url>
-    <loc>https://hoshiyomi365.github.io/hoshiyomi/seiza.html</loc>
+    <loc>https://hoshiyomi365.com/seiza.html</loc>
     <changefreq>daily</changefreq>
     <priority>0.9</priority>
   </url>
   <url>
-    <loc>https://hoshiyomi365.github.io/hoshiyomi/aishou.html</loc>
+    <loc>https://hoshiyomi365.com/aishou.html</loc>
     <changefreq>weekly</changefreq>
     <priority>0.9</priority>
   </url>
   <url>
-    <loc>https://hoshiyomi365.github.io/hoshiyomi/about.html</loc>
+    <loc>https://hoshiyomi365.com/about.html</loc>
     <changefreq>monthly</changefreq>
     <priority>0.3</priority>
   </url>
   <url>
-    <loc>https://hoshiyomi365.github.io/hoshiyomi/unmeisu.html</loc>
+    <loc>https://hoshiyomi365.com/unmeisu.html</loc>
     <changefreq>monthly</changefreq>
     <priority>0.8</priority>
   </url>
   <url>
-    <loc>https://hoshiyomi365.github.io/hoshiyomi/tarot.html</loc>
+    <loc>https://hoshiyomi365.com/tarot.html</loc>
     <changefreq>monthly</changefreq>
     <priority>0.8</priority>
   </url>
