@@ -1,0 +1,157 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>投稿ヘルパー|星詠み</title>
+<meta name="robots" content="noindex, nofollow">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Shippori+Mincho:wght@500;700&family=Zen+Kaku+Gothic+New:wght@400;500;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="assets/site.css">
+<link rel="icon" type="image/png" href="assets/favicon-32.png">
+<link rel="apple-touch-icon" href="assets/icon-180.png">
+<style>
+.post-preview {
+  white-space: pre-wrap;
+  font-size: 14.5px;
+  line-height: 1.9;
+  background: rgba(11, 16, 38, 0.55);
+  border: 1px dashed rgba(169, 163, 194, 0.35);
+  border-radius: 12px;
+  padding: 16px 18px;
+  word-break: break-all;
+}
+.post-btns { display: flex; gap: 12px; justify-content: center; flex-wrap: wrap; margin-top: 20px; }
+.copy-btn {
+  display: inline-block;
+  padding: 15px 30px;
+  font-family: "Shippori Mincho", serif;
+  font-size: 15px;
+  letter-spacing: 0.15em;
+  color: var(--gold-soft);
+  background: rgba(255, 255, 255, 0.06);
+  border: 1px solid var(--card-border);
+  border-radius: 999px;
+  cursor: pointer;
+}
+.copy-btn:active { background: rgba(230, 198, 122, 0.2); }
+.helper-note { text-align: center; font-size: 12px; color: var(--text-dim); line-height: 2; margin-top: 18px; }
+</style>
+</head>
+<body>
+<canvas id="stars"></canvas>
+<main>
+  <nav class="crumb"><a href="./">🌙 星詠み</a><span class="sep">›</span><span>投稿ヘルパー</span></nav>
+
+  <header class="page-hero">
+    <h1>今日の投稿</h1>
+    <p class="lead" id="dateLabel" style="text-align:center;"></p>
+  </header>
+
+  <section class="card">
+    <div class="post-preview" id="preview"></div>
+    <div class="post-btns">
+      <a class="cta" id="postBtn" href="#" target="_blank" rel="noopener">𝕏 で投稿する →</a>
+      <button class="copy-btn" id="copyBtn">📋 コピー</button>
+    </div>
+    <p class="helper-note">内容は毎日0時に自動で切り替わります(平日=12星座ランキング/土=相性占い/日=タロット)。<br>スマホからでもOK。ボタンを押すとXが本文入りで開くので、確認して投稿するだけです。</p>
+  </section>
+</main>
+
+<script src="assets/stars.js"></script>
+<script>
+"use strict";
+/* 投稿文生成 — monitor.py の generate_hoshiyomi_post と完全一致させること */
+const BASE = "https://hoshiyomi365.com/";
+
+const SIGNS = [
+  ["おひつじ座", "♈"], ["おうし座", "♉"], ["ふたご座", "♊"], ["かに座", "♋"],
+  ["しし座", "♌"], ["おとめ座", "♍"], ["てんびん座", "♎"], ["さそり座", "♏"],
+  ["いて座", "♐"], ["やぎ座", "♑"], ["みずがめ座", "♒"], ["うお座", "♓"]
+];
+
+const TAROT = [
+  ["愚者", "🃏", "自由・はじまり", "考えすぎず、心が向く方へ一歩踏み出すと吉"],
+  ["魔術師", "✨", "創造・才能", "思いついたことを形にする絶好の日"],
+  ["女教皇", "📖", "直感・静けさ", "静かな時間にひらめきが降りてきます"],
+  ["女帝", "🌹", "豊かさ・愛情", "与えたものが巡って返ってくる日"],
+  ["皇帝", "👑", "安定・決断", "決めるべきことは堂々と決めてOK"],
+  ["教皇", "🕊️", "導き・信頼", "信頼できる人の助言が鍵になります"],
+  ["恋人", "💞", "愛・選択", "心が動いた方を選んで正解の日"],
+  ["戦車", "🏇", "前進・勝利", "迷わず進めばスピードが追い風に"],
+  ["力", "🦁", "内なる強さ", "力ずくよりしなやかさで乗り越えて"],
+  ["隠者", "🏮", "内省・探求", "ひとり時間が宝物になる日"],
+  ["運命の輪", "🎡", "転機・チャンス", "偶然の出来事にこそ注目を"],
+  ["正義", "⚖️", "公正・バランス", "白黒つけたいことは今日が好機"],
+  ["吊るされた男", "🙃", "視点の転換", "角度を変えると突破口が見えます"],
+  ["死神", "🦋", "再生・区切り", "手放すことで新しいものが入ってきます"],
+  ["節制", "🫖", "調和・ほどよさ", "「ほどほど」が最強の日"],
+  ["悪魔", "🔗", "誘惑・執着", "甘い誘いにはひと呼吸おいて"],
+  ["塔", "⚡", "刷新・気づき", "予定変更の先に、より良い形があります"],
+  ["星", "🌟", "希望・癒やし", "願いごとをするのに最適な日"],
+  ["月", "🌙", "感受性・夢", "不安は幻が多め。事実だけを見て"],
+  ["太陽", "☀️", "成功・生命力", "素直な明るさが人もチャンスも引き寄せる"],
+  ["審判", "📯", "復活・再挑戦", "再挑戦・再連絡が吉です"],
+  ["世界", "🌍", "完成・達成", "仕上げ・締めくくりに最適な日"]
+];
+
+const COLORS = ["茜色", "山吹色", "若草色", "瑠璃色", "藤色", "珊瑚色",
+                "翡翠色", "金色", "桃色", "空色", "銀鼠", "菫色"];
+
+function rankKey(seed, i) {
+  let x = (seed + Math.imul(i, 0x9E3779B9)) >>> 0;
+  x ^= x >>> 16;
+  x = Math.imul(x, 0x85EBCA6B) >>> 0;
+  x ^= x >>> 13;
+  x = Math.imul(x, 0xC2B2AE35) >>> 0;
+  x ^= x >>> 16;
+  return x >>> 0;
+}
+
+function genPost(now) {
+  const seed = now.getFullYear() * 10000 + (now.getMonth() + 1) * 100 + now.getDate();
+  const wd = (now.getDay() + 6) % 7; // 月=0 … 日=6 (Python互換)
+  const m = now.getMonth() + 1, d = now.getDate();
+  if (wd <= 4) {
+    const idx = SIGNS.map((_, i) => i).sort((a, b) => rankKey(seed, b) - rankKey(seed, a));
+    const medals = ["🥇", "🥈", "🥉"];
+    const top3 = [0, 1, 2].map(r =>
+      medals[r] + " " + SIGNS[idx[r]][1] + " " + SIGNS[idx[r]][0]).join("\n");
+    const url = BASE + "seiza.html?utm_source=x&utm_medium=social&utm_campaign=seiza";
+    return "おはようございます🌅 " + m + "/" + d + "\n今日の12星座ランキング👑\n" + top3 +
+      "\n\n全順位とあなたの星座の運勢は👇\n#星座占い #今日の運勢\n" + url;
+  } else if (wd === 5) {
+    const url = BASE + "aishou.html?utm_source=x&utm_medium=social&utm_campaign=aishou";
+    return "今週もおつかれさまでした🌙\n週末は、気になるあの人との相性チェックはいかが?\n" +
+      "名前と生年月日だけで%診断できます💫\n\n#相性占い #星詠み\n" + url;
+  } else {
+    const t = TAROT[rankKey(seed, 200) % TAROT.length];
+    const color = COLORS[rankKey(seed, 300) % COLORS.length];
+    const url = BASE + "?utm_source=x&utm_medium=social&utm_campaign=daily";
+    return "おはようございます🌅\n" + m + "/" + d + " 今日の一枚は「" + t[0] + "」" + t[1] +
+      "\n─ " + t[2] + " ─\n" + t[3] + "\n\nラッキーカラーは" + color + "✨\n" +
+      "あなたの運勢は3秒で👇\n#今日の運勢 #星詠み\n" + url;
+  }
+}
+
+(function () {
+  const now = new Date();
+  const WEEKDAYS = ["日", "月", "火", "水", "木", "金", "土"];
+  document.getElementById("dateLabel").textContent =
+    now.getFullYear() + "年" + (now.getMonth() + 1) + "月" + now.getDate() +
+    "日(" + WEEKDAYS[now.getDay()] + ")の分";
+  const text = genPost(now);
+  document.getElementById("preview").textContent = text;
+  document.getElementById("postBtn").href =
+    "https://twitter.com/intent/tweet?text=" + encodeURIComponent(text);
+  document.getElementById("copyBtn").addEventListener("click", () => {
+    navigator.clipboard.writeText(text).then(() => {
+      document.getElementById("copyBtn").textContent = "✅ コピーしました";
+      setTimeout(() => { document.getElementById("copyBtn").textContent = "📋 コピー"; }, 2000);
+    });
+  });
+})();
+</script>
+</body>
+</html>
