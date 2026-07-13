@@ -13,8 +13,8 @@
 <link rel="apple-touch-icon" href="assets/icon-180.png">
 <style>
 .ig-card-wrap { text-align: center; margin: 0 auto 4px; }
-#igcard { width: 100%; max-width: 340px; height: auto; border-radius: 14px;
-  box-shadow: 0 8px 30px rgba(0,0,0,0.45); }
+#igimg { width: 100%; max-width: 340px; height: auto; border-radius: 14px;
+  box-shadow: 0 8px 30px rgba(0,0,0,0.45); display: none; }
 .cap-preview {
   white-space: pre-wrap; font-size: 14px; line-height: 1.85;
   background: rgba(11, 16, 38, 0.55); border: 1px dashed rgba(169, 163, 194, 0.35);
@@ -46,9 +46,10 @@
 
   <section class="card">
     <div class="ig-card-wrap">
-      <canvas id="igcard" width="1080" height="1350"></canvas>
+      <canvas id="igcard" width="1080" height="1350" style="display:none;"></canvas>
+      <img id="igimg" alt="今日の占いカード">
     </div>
-    <p class="step" style="text-align:center;">↑ 画像を<b>長押し→「写真に追加/保存」</b>(スマホ)</p>
+    <p class="step" style="text-align:center;">↑ 画像を<b>長押し→「写真に保存」</b>(スマホ)</p>
     <div class="post-btns">
       <button class="copy-btn" id="dlBtn">⬇ 画像を保存</button>
     </div>
@@ -275,6 +276,12 @@ function wrapText(g, text, cx, y, maxW, lh) {
     await document.fonts.ready;
   } catch(e) {}
   drawCard(day);
+
+  // canvasは長押し保存できないので、実際の<img>に変換して表示する(スマホで写真保存可)
+  const cv = document.getElementById("igcard");
+  const img = document.getElementById("igimg");
+  img.src = cv.toDataURL("image/png");
+  img.style.display = "block";
 
   const ymd = now.getFullYear()+String(now.getMonth()+1).padStart(2,"0")+String(now.getDate()).padStart(2,"0");
   document.getElementById("dlBtn").addEventListener("click", () => {
