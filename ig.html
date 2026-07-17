@@ -65,7 +65,7 @@
       2. 「📋 キャプションをコピー」を押す<br>
       3. Instagramアプリ → ＋新規投稿 → 保存した画像を選択<br>
       4. キャプション欄に貼り付け → シェア<br>
-      リンクは<b>プロフィール</b>に hoshiyomi365.com を入れておけばOK(毎回貼らない)。
+      <span style="color:#ffb3c1;">🚫 <b>2026/8/13までリンク共有制限中</b>: bioのリンクは外したまま・キャプションや画像にURLを入れない・投稿は週2〜3回まで。解除後にプロフィールへ hoshiyomi365.com を戻す。</span>
     </p>
     <p class="warn">⚠️ <b>投稿前にアカウント確認</b>。Instagramは「いま開いているアカウント」で投稿されます。
     プロフィールが 🌙<b>@hoshiyomi365</b> になっているか確認してから投稿してください。<br>
@@ -120,6 +120,7 @@ function rankKey(seed, i) {
 }
 
 /* その日のデータ(種別・表示要素・キャプション)を返す */
+/* ※「プロフィールのリンクから」等のCTAはIGリンク共有制限(終了日2026-08-13)のため一時削除。解除後に復元する */
 function genDay(now) {
   const seed = now.getFullYear()*10000 + (now.getMonth()+1)*100 + now.getDate();
   const wd = (now.getDay() + 6) % 7; // 月=0 … 日=6
@@ -132,20 +133,20 @@ function genDay(now) {
     const capTop = [0,1,2].map(r => medals[r]+" "+SIGNS[idx[r]][0]).join("\n");
     const caption =
       "🌙 今日の12星座ランキング "+md+"\n\n"+capTop+
-      "\n\nあなたの星座は何位？\n全12星座の順位と今日の運勢は、プロフィールのリンクから3秒でチェックできます🔮"+
+      "\n\nあなたの星座は何位でしたか？\n今日も良い一日になりますように🔮"+
       "\n\n#今日の運勢 #星座占い #占い #今日の占い #星座 #占い好きな人と繋がりたい #おはよう #朝活";
     return { type:"rank", md, top3, caption };
   } else if (wd === 5) {
     const caption =
-      "🌙 週末の相性占い 💞\n\n気になるあの人との相性、名前と生年月日だけで診断できます。\n\n"+
-      "結果はプロフィールのリンクからどうぞ🔮\n\n#相性占い #占い #恋愛占い #星詠み #占い好きな人と繋がりたい #週末";
+      "🌙 週末の相性占い 💞\n\n大切なあの人のことを想いながら、ゆったり過ごす週末に。\n\n"+
+      "素敵な週末になりますように🔮\n\n#相性占い #占い #恋愛占い #星詠み #占い好きな人と繋がりたい #週末";
     return { type:"aishou", md, caption };
   } else {
     const t = TAROT[rankKey(seed,200) % TAROT.length];
     const color = COLORS[rankKey(seed,300) % COLORS.length];
     const caption =
       "🌙 今日の一枚「"+t[0]+"」"+t[1]+" "+md+"\n─ "+t[2]+" ─\n"+t[3]+
-      "\n\nラッキーカラーは"+color+"✨\n\nあなた個人の運勢は、プロフィールのリンクから🔮"+
+      "\n\nラッキーカラーは"+color+"✨\n\n今日も穏やかな一日になりますように🔮"+
       "\n\n#今日の運勢 #タロット #タロット占い #占い #今日の占い #占い好きな人と繋がりたい #おはよう";
     return { type:"tarot", md, tarot:t, color, caption };
   }
