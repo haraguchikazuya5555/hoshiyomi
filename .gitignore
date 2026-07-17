@@ -1,1 +1,35 @@
 .DS_Store
+# --- secrets (自動バックアップ除外) ---
+.env
+.env.*
+*.pem
+*.p12
+*.key
+*credentials*.json
+*token*.json
+*cookies*.json
+*cookies*.txt
+*.session
+*session*.json
+storage_state*.json
+# --- runtime / junk ---
+__pycache__/
+*.pyc
+.pytest_cache/
+node_modules/
+.venv/
+venv/
+logs/
+*.log
+*.log.*.gz
+*.gz
+# --- browser profiles / states ---
+profile/
+user_data/
+playwright-profile/
+# --- big media & artifacts ---
+*.mp4
+*.mov
+*.webm
+debug_screenshots/
+snapshots/
