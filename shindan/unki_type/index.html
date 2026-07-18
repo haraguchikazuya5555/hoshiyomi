@@ -1,0 +1,240 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+<title>あなたの運気の流れタイプ診断</title>
+<meta name="description" content="日常のあるあるシーンから、あなただけの運気の流れタイプを診断します。">
+<meta property="og:title" content="あなたの運気の流れタイプ診断">
+<meta property="og:description" content="日常のあるあるシーンから、あなただけの運気の流れタイプを診断します。">
+<meta property="og:type" content="website">
+<meta name="twitter:card" content="summary">
+<style>
+:root { --accent: #c9a227; }
+* { margin: 0; padding: 0; box-sizing: border-box; }
+html { -webkit-text-size-adjust: 100%; }
+body {
+  font-family: "Hiragino Kaku Gothic ProN", "Hiragino Sans", "BIZ UDPGothic", "Yu Gothic", system-ui, sans-serif;
+  background: linear-gradient(160deg, color-mix(in srgb, var(--accent) 14%, #f7f8fc), #f7f8fc 45%, color-mix(in srgb, var(--accent) 8%, #f7f8fc));
+  min-height: 100dvh; color: #2b2d3a;
+  display: flex; flex-direction: column; align-items: center;
+  padding: 20px 16px calc(24px + env(safe-area-inset-bottom));
+}
+.wrap { width: 100%; max-width: 480px; }
+.card {
+  background: #fff; border-radius: 20px;
+  box-shadow: 0 8px 32px rgba(40, 40, 80, .10);
+  padding: 28px 22px; animation: pop .35s ease;
+}
+@keyframes pop { from { opacity: 0; transform: translateY(14px); } to { opacity: 1; transform: none; } }
+.hidden { display: none !important; }
+
+/* start */
+.hero-emoji { font-size: 56px; text-align: center; margin-bottom: 10px; }
+h1 { font-size: 24px; text-align: center; line-height: 1.4; margin-bottom: 10px; }
+.catch { text-align: center; color: #666a7a; font-size: 14px; line-height: 1.7; margin-bottom: 22px; }
+.meta-row { display: flex; justify-content: center; gap: 14px; margin-bottom: 22px; font-size: 12px; color: #8a8ea0; }
+.meta-row span { background: #f2f3f9; border-radius: 999px; padding: 5px 12px; }
+.btn {
+  display: block; width: 100%; border: 0; cursor: pointer; text-align: center; text-decoration: none;
+  background: var(--accent); color: #fff; font-size: 17px; font-weight: 700;
+  padding: 16px; border-radius: 14px; font-family: inherit;
+  box-shadow: 0 6px 18px color-mix(in srgb, var(--accent) 38%, transparent);
+  transition: transform .12s ease, box-shadow .12s ease;
+}
+.btn:active { transform: scale(.97); }
+
+/* question */
+.progress-track { height: 6px; background: #e9eaf2; border-radius: 999px; margin-bottom: 8px; overflow: hidden; }
+.progress-bar { height: 100%; width: 0; background: var(--accent); border-radius: 999px; transition: width .3s ease; }
+.progress-label { font-size: 12px; color: #8a8ea0; text-align: right; margin-bottom: 18px; }
+.q-text { font-size: 19px; font-weight: 700; line-height: 1.55; margin-bottom: 20px; min-height: 3.1em; }
+.choice {
+  display: block; width: 100%; text-align: left; cursor: pointer; font-family: inherit;
+  background: #f6f7fb; border: 2px solid transparent; border-radius: 14px;
+  padding: 15px 16px; font-size: 15px; line-height: 1.5; color: #2b2d3a; margin-bottom: 12px;
+  transition: border-color .12s ease, background .12s ease, transform .12s ease;
+}
+.choice:active { transform: scale(.98); border-color: var(--accent); background: color-mix(in srgb, var(--accent) 8%, #fff); }
+.back-link { display: inline-block; margin-top: 6px; font-size: 13px; color: #9aa; background: none; border: 0; cursor: pointer; font-family: inherit; }
+
+/* result */
+.r-label { text-align: center; font-size: 13px; color: #8a8ea0; letter-spacing: .1em; margin-bottom: 6px; }
+.r-emoji { font-size: 64px; text-align: center; margin: 6px 0; animation: bounce .6s ease; }
+@keyframes bounce { 0% { transform: scale(.3); opacity: 0; } 60% { transform: scale(1.15); } 100% { transform: scale(1); opacity: 1; } }
+.r-name { font-size: 26px; font-weight: 800; text-align: center; color: var(--accent); margin-bottom: 14px; }
+.r-summary { font-size: 15px; line-height: 1.8; color: #444858; margin-bottom: 18px; }
+.traits { background: #f6f7fb; border-radius: 14px; padding: 16px; margin-bottom: 18px; }
+.traits li { list-style: none; font-size: 14px; line-height: 1.7; padding-left: 1.5em; position: relative; margin-bottom: 6px; }
+.traits li:last-child { margin-bottom: 0; }
+.traits li::before { content: "✓"; position: absolute; left: 2px; color: var(--accent); font-weight: 700; }
+.advice { font-size: 14px; line-height: 1.8; color: #444858; margin-bottom: 20px; }
+.cta-box {
+  border: 2px solid color-mix(in srgb, var(--accent) 45%, #fff);
+  background: color-mix(in srgb, var(--accent) 6%, #fff);
+  border-radius: 16px; padding: 18px 16px; margin-bottom: 16px;
+}
+.cta-note { font-size: 13px; line-height: 1.7; color: #555a6e; margin-bottom: 12px; }
+.pr-tag { display: inline-block; font-size: 10px; color: #999; border: 1px solid #ccc; border-radius: 4px; padding: 1px 5px; margin-left: 6px; vertical-align: middle; }
+.share-btn {
+  display: block; width: 100%; text-align: center; text-decoration: none;
+  background: #2b2d3a; color: #fff; font-size: 15px; font-weight: 700;
+  padding: 14px; border-radius: 14px; margin-bottom: 12px;
+}
+.retry { display: block; text-align: center; font-size: 13px; color: #9aa; margin-top: 6px; background: none; border: 0; cursor: pointer; font-family: inherit; width: 100%; }
+.footer { margin-top: 18px; font-size: 11px; color: #a5a9ba; text-align: center; line-height: 1.7; }
+</style>
+</head>
+<body>
+<div class="wrap">
+  <!-- start -->
+  <div id="scr-start" class="card">
+    <div class="hero-emoji" id="s-emoji"></div>
+    <h1 id="s-title"></h1>
+    <p class="catch" id="s-catch"></p>
+    <div class="meta-row"><span id="s-count"></span><span>⏱ 約30秒</span><span>無料</span></div>
+    <button class="btn" id="btn-start">診断スタート</button>
+  </div>
+
+  <!-- question -->
+  <div id="scr-q" class="card hidden">
+    <div class="progress-track"><div class="progress-bar" id="p-bar"></div></div>
+    <div class="progress-label" id="p-label"></div>
+    <div class="q-text" id="q-text"></div>
+    <div id="q-choices"></div>
+    <button class="back-link hidden" id="btn-back">← ひとつ前に戻る</button>
+  </div>
+
+  <!-- result -->
+  <div id="scr-r" class="card hidden">
+    <div class="r-label">あなたの診断結果</div>
+    <div class="r-emoji" id="r-emoji"></div>
+    <div class="r-name" id="r-name"></div>
+    <p class="r-summary" id="r-summary"></p>
+    <ul class="traits" id="r-traits"></ul>
+    <p class="advice" id="r-advice"></p>
+    <div class="cta-box" id="cta-box">
+      <p class="cta-note"><span id="cta-note"></span><span class="pr-tag" id="pr-tag">PR</span></p>
+      <a class="btn" id="cta-btn" target="_blank" rel="noopener sponsored"></a>
+    </div>
+    <a class="share-btn" id="share-btn" target="_blank" rel="noopener">𝕏 で結果をシェアする</a>
+    <button class="retry" id="btn-retry">もう一度診断する</button>
+  </div>
+
+  <div class="footer" id="footer-disclosure"></div>
+</div>
+
+<script>
+const CFG = {"title": "あなたの運気の流れタイプ診断", "catch": "あなたの運気、どんな流れで動いてる？", "description": "日常のあるあるシーンから、あなただけの運気の流れタイプを診断します。", "emoji": "🌊", "questions": [{"q": "朝、目が覚めたとき最初にすることは？", "choices": [{"t": "スマホで今日の運勢やニュースをチェックする", "w": {"A": 2}}, {"t": "深呼吸して、今日の予定を頭の中で整理する", "w": {"B": 2}}, {"t": "見た夢や寝起きの感覚をぼんやり思い返す", "w": {"C": 2}}, {"t": "その日の気分次第で、起き方も行動もバラバラ", "w": {"D": 2}}]}, {"q": "友達に「急に飲み会どう？」と誘われたら？", "choices": [{"t": "「行く行く！」と即答してすぐ支度を始める", "w": {"A": 2}}, {"t": "スケジュールを確認してから丁寧に返事する", "w": {"B": 2}}, {"t": "その瞬間の気分で「なんとなく行こう」と決める", "w": {"C": 2}}, {"t": "少し迷いながら、条件や場所次第で判断する", "w": {"D": 2}}]}, {"q": "ラッキーなことが続いているとき、どう感じる？", "choices": [{"t": "「このチャンスを逃さないぞ！」とさらに行動する", "w": {"A": 2}}, {"t": "「この流れを崩さないようにしよう」と慎重になる", "w": {"B": 2}}, {"t": "「なんかいい予感がしてたんだよね」と確信する", "w": {"C": 2}}, {"t": "「どこかで帳尻が合いそう」と少しドキドキする", "w": {"D": 2}}]}, {"q": "落ち込んだとき、どうやって立ち直る？", "choices": [{"t": "友達に会ったり外出したりして気分転換する", "w": {"A": 2}}, {"t": "一人で原因を整理して、次の対策を考える", "w": {"B": 2}}, {"t": "好きなものに触れて、自然と気持ちが戻るのを待つ", "w": {"C": 2}}, {"t": "しばらく落ち込んでから、ある日突然リセットされる", "w": {"D": 2}}]}, {"q": "何か新しいことを始めるとき、どうする？", "choices": [{"t": "「まずやってみよう！」と即行動に移す", "w": {"A": 2}}, {"t": "情報収集してから計画を立てて始める", "w": {"B": 2}}, {"t": "なんとなくピンときたタイミングで動き出す", "w": {"C": 2}}, {"t": "少し迷いながら、自分なりのやり方を模索する", "w": {"D": 2}}]}, {"q": "休日、何も予定がない一日があったら？", "choices": [{"t": "友達や家族を誘って、どこかへ出かける", "w": {"A": 2}}, {"t": "前から計画していたことをこなしてスッキリする", "w": {"B": 2}}, {"t": "その日の気分で行き当たりばったりに過ごす", "w": {"C": 2}}, {"t": "家でのんびりしたかと思ったら急に外へ出たりする", "w": {"D": 2}}]}, {"q": "直感と計画、どちらをより大切にしている？", "choices": [{"t": "行動しながら考えるのが一番しっくりくる", "w": {"A": 2}}, {"t": "計画を立ててしっかり進めることが好き", "w": {"B": 2}}, {"t": "直感を最優先にして動くことが多い", "w": {"C": 2}}, {"t": "場面によって使い分けていて一概には言えない", "w": {"D": 2}}]}, {"q": "「運気が上がってるな」と感じる瞬間はどんなとき？", "choices": [{"t": "次々と新しい出会いや機会が訪れるとき", "w": {"A": 2}}, {"t": "努力してきたことが少しずつ形になってきたとき", "w": {"B": 2}}, {"t": "なぜか心がワクワクして、予感がぴたりと当たるとき", "w": {"C": 2}}, {"t": "いろいろなことが重なって、急に突破口が開くとき", "w": {"D": 2}}]}], "types": {"A": {"name": "上昇気流型", "emoji": "🌤️", "summary": "勢いと行動力で運気を引き寄せるタイプです。チャンスを逃さない積極性と、人を巻き込む明るさが、流れを一気に上昇させます。動くたびに新しい縁やきっかけが生まれるのがあなたの特徴です。", "traits": ["フットワークが軽く即行動できる", "人との縁を自然と引き寄せる", "ポジティブな勢いで道を切り開く"], "advice": "勢いに乗っているときこそあなたの真骨頂！直感を信じてどんどん動きましょう。ときどき立ち止まって感謝する時間を作ると、運気がさらに安定していきます。"}, "B": {"name": "大河流型", "emoji": "🏞️", "summary": "着実に、しかし確実に運気を積み上げていくタイプです。焦らず丁寧に積み重ねた努力が、やがて大きな流れとなって人生を動かします。信頼感と安定感が、周囲の人も引き寄せます。", "traits": ["コツコツと継続する力がある", "周囲から信頼される安定感", "長期的な視野でものを見られる"], "advice": "あなたの強みは揺るぎない「継続力」です。今の流れを信じて焦らずに。定期的に新しい刺激を取り入れることで、運気の幅がさらに広がっていきます。"}, "C": {"name": "湧き水型", "emoji": "💧", "summary": "内側から自然と溢れ出す直感と豊かな感受性で、運気を呼び込むタイプです。「なんとなくいい気がする」という感覚が鋭く、不思議と良い縁やベストなタイミングに恵まれます。", "traits": ["鋭い直感力を持っている", "感受性が豊かで空気を読める", "自分のペースとリズムを知っている"], "advice": "あなたの直感は本物の羅針盤です。「なんとなく」という感覚を大切にして。心地よい環境や人に囲まれることで、運気が内側から自然と湧き出してきます。"}, "D": {"name": "螺旋上昇型", "emoji": "🌀", "summary": "波があるように見えて、実はしっかりと上昇し続けているタイプです。山あり谷ありの経験が個性と深みになり、独自のリズムで着実に運気を育てます。突破するときのエネルギーは誰よりも強力です。", "traits": ["ユニークな視点とこだわりを持つ", "経験から学ぶ吸収力が高い", "独自の道を自分らしく歩む"], "advice": "あなたの波こそが個性とパワーの源です。波が低いときは充電期間と思って無理をしないで。好奇心の赴くまま動き出すと、新しい運気の扉が一気に開きます。"}}, "accent": "#c9a227", "cta_default": {"url": "https://hoshiyomi365.com/", "label": "今日だけの運勢を無料で見る", "note": "生年月日と名前で、今日のあなたの運気を詠めます"}, "slug": "unki_type"};
+
+const $ = (id) => document.getElementById(id);
+let idx = 0;
+let picks = []; // chosen choice index per question
+
+function show(id) {
+  ["scr-start", "scr-q", "scr-r"].forEach(s => $(s).classList.add("hidden"));
+  $(id).classList.remove("hidden");
+}
+
+function initStart() {
+  $("s-emoji").textContent = CFG.emoji || "🔮";
+  $("s-title").textContent = CFG.title;
+  $("s-catch").textContent = CFG.catch || "";
+  $("s-count").textContent = "全" + CFG.questions.length + "問";
+  const dis = [];
+  if (CFG.pr_disclosure !== false) dis.push("※本診断の結果ページには広告（PR）を含みます。");
+  dis.push("※本診断はエンターテインメントであり、結果を保証するものではありません。");
+  $("footer-disclosure").innerHTML = dis.join("<br>");
+}
+
+function renderQ() {
+  const q = CFG.questions[idx];
+  const n = CFG.questions.length;
+  $("p-bar").style.width = Math.round(idx / n * 100) + "%";
+  $("p-label").textContent = "Q" + (idx + 1) + " / " + n;
+  $("q-text").textContent = q.q;
+  const box = $("q-choices");
+  box.innerHTML = "";
+  q.choices.forEach((c, ci) => {
+    const b = document.createElement("button");
+    b.className = "choice";
+    b.textContent = c.t;
+    b.onclick = () => { picks[idx] = ci; idx++; idx < n ? renderQ() : finish(); };
+    box.appendChild(b);
+  });
+  $("btn-back").classList.toggle("hidden", idx === 0);
+  window.scrollTo({ top: 0 });
+}
+
+function calcType() {
+  const score = {};
+  Object.keys(CFG.types).forEach(k => score[k] = 0);
+  picks.forEach((ci, qi) => {
+    const w = CFG.questions[qi].choices[ci].w || {};
+    Object.entries(w).forEach(([k, v]) => { if (k in score) score[k] += v; });
+  });
+  return Object.entries(score).sort((a, b) => b[1] - a[1])[0][0];
+}
+
+function ctaFor(t) {
+  const c = Object.assign({}, CFG.cta_default || {}, (CFG.types[t].cta || {}));
+  if (!c.url) return null;
+  if (CFG.utm !== false) {
+    const sep = c.url.includes("?") ? "&" : "?";
+    c.url += sep + "utm_source=shindan&utm_medium=quiz&utm_campaign=" +
+      encodeURIComponent(CFG.slug) + "&utm_content=" + encodeURIComponent(t);
+  }
+  return c;
+}
+
+function renderResult(t) {
+  const r = CFG.types[t];
+  if (!r) return;
+  $("r-emoji").textContent = r.emoji || "✨";
+  $("r-name").textContent = r.name;
+  $("r-summary").textContent = r.summary || "";
+  $("r-traits").innerHTML = (r.traits || []).map(x => "<li>" + esc(x) + "</li>").join("");
+  $("r-advice").textContent = r.advice || "";
+  const cta = ctaFor(t);
+  if (cta) {
+    $("cta-note").textContent = cta.note || "このタイプのあなたにおすすめ";
+    $("cta-btn").textContent = cta.label || "詳しく見る";
+    $("cta-btn").href = cta.url;
+    $("cta-btn").onclick = () => beacon(t);
+    $("pr-tag").style.display = cta.pr === false ? "none" : "";
+  } else {
+    $("cta-box").classList.add("hidden");
+  }
+  const base = location.origin + location.pathname;
+  const text = "「" + CFG.title + "」の結果は…【" + r.name + "】でした！\nあなたも診断してみて👇\n";
+  $("share-btn").href = "https://twitter.com/intent/tweet?text=" +
+    encodeURIComponent(text) + "&url=" + encodeURIComponent(base + "?r=" + t);
+  show("scr-r");
+  window.scrollTo({ top: 0 });
+}
+
+function finish() { renderResult(calcType()); }
+
+function beacon(t) {
+  if (!CFG.beacon) return;
+  try { navigator.sendBeacon(CFG.beacon, JSON.stringify({ slug: CFG.slug, type: t, ts: Date.now() })); } catch (e) {}
+}
+
+function esc(s) { return s.replace(/[&<>"']/g, c => ({ "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;", "'": "&#39;" }[c])); }
+
+$("btn-start").onclick = () => { idx = 0; picks = []; renderQ(); show("scr-q"); };
+$("btn-back").onclick = () => { if (idx > 0) { idx--; renderQ(); } };
+$("btn-retry").onclick = () => { idx = 0; picks = []; history.replaceState(null, "", location.pathname); renderQ(); show("scr-q"); };
+
+initStart();
+// shared-link landing: ?r=TYPE shows that result directly
+const shared = new URLSearchParams(location.search).get("r");
+if (shared && CFG.types[shared]) {
+  renderResult(shared);
+  $("btn-retry").textContent = "自分も診断してみる →";
+} else {
+  show("scr-start");
+}
+</script>
+</body>
+</html>
